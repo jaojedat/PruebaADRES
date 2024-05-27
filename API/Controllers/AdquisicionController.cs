@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.Dtos;
+using API.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,7 +22,9 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-           var adquisicion = _context.Adquisiciones.ToList();
+           var adquisicion = _context.Adquisiciones.ToList()
+                .Select(s => s.ToAdquisicionDto());
+                
            return Ok(adquisicion); 
         }
 
@@ -34,7 +38,16 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            return Ok(adquisicion);
+            return Ok(adquisicion.ToAdquisicionDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateAdquisicionDto AdquisicionDto)
+        {
+            var adquisicionModel = AdquisicionDto.ToAdquisicionCreateDto();
+            _context.Adquisiciones.Add(adquisicionModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = adquisicionModel.Id }, adquisicionModel.ToAdquisicionDto());
         }
     }
 }
