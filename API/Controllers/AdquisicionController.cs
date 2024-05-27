@@ -49,5 +49,48 @@ namespace API.Controllers
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = adquisicionModel.Id }, adquisicionModel.ToAdquisicionDto());
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateAdquisicionDto updateDto)
+        {
+            var adquisicionModel = _context.Adquisiciones.FirstOrDefault(x => x.Id == id);
+
+            if(adquisicionModel == null)
+            {
+                return NotFound();
+            }
+
+            adquisicionModel.Presupuesto = updateDto.Presupuesto;
+            adquisicionModel.Unidad = updateDto.Unidad;
+            adquisicionModel.TipoBienServicio = updateDto.TipoBienServicio;
+            adquisicionModel.Cantidad = updateDto.Cantidad;
+            adquisicionModel.ValorUnitario = updateDto.ValorUnitario;
+            adquisicionModel.FechaAdquisicion = updateDto.FechaAdquisicion;
+            adquisicionModel.Proveedor = updateDto.Proveedor;
+            adquisicionModel.Documentacion = updateDto.Documentacion;
+
+            _context.SaveChanges();
+
+            return Ok(adquisicionModel.ToAdquisicionDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromBody] int id)
+        {
+            var adquisicionModel = _context.Adquisiciones.FirstOrDefault(x => x.Id == id);
+
+            if(adquisicionModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Adquisiciones.Remove(adquisicionModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
