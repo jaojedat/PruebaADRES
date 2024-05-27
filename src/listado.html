@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Adquisiciones</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Listado de Adquisiciones</h1>
+    </header>
+    <main>
+        <section id="filtros">
+            <h2>Filtros</h2>
+            <label for="filtroTipo">Tipo de Bien o Servicio:</label>
+            <input type="text" id="filtroTipo">
+            <button onclick="aplicarFiltros()">Aplicar Filtros</button>
+        </section>
+        
+        <section id="editar-adquisicion" class="oculto">
+            <h2>Editar Adquisición</h2>
+            <!-- Formulario de edición será similar al de registro -->
+            <label for="editar-presupuesto">Presupuesto:</label>
+            <input type="number" id="editar-presupuesto" required>
+
+            <label for="editar-unidad">Unidad Administrativa:</label>
+            <input type="text" id="editar-unidad" required>
+
+            <label for="editar-tipo">Tipo de Bien o Servicio:</label>
+            <input type="text" id="editar-tipo" required>
+
+            <label for="editar-descripcion">Descripción:</label>
+            <textarea id="editar-descripcion" required></textarea>
+
+            <label for="editar-cantidad">Cantidad:</label>
+            <input type="number" id="editar-cantidad" required>
+
+            <label for="editar-valorUnitario">Valor Unitario:</label>
+            <input type="number" id="editar-valorUnitario" required>
+
+            <label for="editar-fecha">Fecha de Adquisición:</label>
+            <input type="date" id="editar-fecha" required>
+
+            <label for="editar-proveedor">Proveedor:</label>
+            <input type="text" id="editar-proveedor" required>
+
+            <label for="editar-documentacion">Documentación:</label>
+            <textarea id="editar-documentacion" required></textarea>
+
+            <button onclick="guardarCambios()">Guardar Cambios</button>
+            <button onclick="cancelarEdicion()">Cancelar</button>
+        </section>
+        
+        <section id="adquisiciones-lista">
+            <h2>Lista de Adquisiciones</h2>
+            <div id="lista"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
